@@ -150,7 +150,7 @@ export default function Home() {
                       color: "error",
                     }}
                   >
-                    This NFT has no "Level" attribute.
+                    This NFT has no &quot;Level&quot; attribute.
                   </Text>
                 ) : null}
 
