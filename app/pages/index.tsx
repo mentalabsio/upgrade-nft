@@ -234,7 +234,11 @@ export default function Home() {
                     alignSelf: "center",
                   }}
                   type="submit"
-                  disabled={!userTokenBalance || !priceTable}
+                  disabled={
+                    !userTokenBalance ||
+                    !priceTable ||
+                    userTokenBalance < priceTable.cost
+                  }
                 >
                   upgrade!
                 </Button>

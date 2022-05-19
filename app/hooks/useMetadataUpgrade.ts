@@ -368,6 +368,10 @@ const useMetadataUpgrade = () => {
         })
       ).json()
 
+      if (!txid) {
+        throw "Invalid request."
+      }
+
       setFeedbackStatus("Confirming transaction...")
       await connection.confirmTransaction(txid, "confirmed")
 
