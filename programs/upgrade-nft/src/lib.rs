@@ -6,7 +6,7 @@ use solutils::{
     wrappers::metadata::{MetadataAccount, TokenMetadata, UpdateMetadataAccountV2},
 };
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("PDBzXXEihGKUYUuJyoV4MxdbhDcRydpXMEjXhvfNE1f");
 
 #[program]
 pub mod upgrade_nft {

@@ -8,7 +8,7 @@ import {
 } from "@/hooks/useMetadataUpgrade"
 
 const mintOwner = anchor.web3.Keypair.fromSecretKey(
-  anchor.utils.bytes.bs58.decode(process.env.MINT_AUTHORITY_PK)
+  anchor.utils.bytes.bs58.decode(process.env.MINT_AUTHORITY_PK_BS58)
 )
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

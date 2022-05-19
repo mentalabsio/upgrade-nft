@@ -32,27 +32,27 @@ const incineratorAddress = new web3.PublicKey(
 )
 
 export const pricesTable = {
-  1: {
-    label: "By chance",
-    levels: {
-      2: {
-        cost: 200,
-        chance: 75,
-      },
-      3: {
-        cost: 200,
-        chance: 50,
-      },
-      4: {
-        cost: 200,
-        chance: 25,
-      },
-      5: {
-        cost: 200,
-        chance: 10,
-      },
-    },
-  },
+  // 1: {
+  //   label: "By chance",
+  //   levels: {
+  //     2: {
+  //       cost: 2,
+  //       chance: 75,
+  //     },
+  //     3: {
+  //       cost: 2,
+  //       chance: 50,
+  //     },
+  //     4: {
+  //       cost: 200,
+  //       chance: 25,
+  //     },
+  //     5: {
+  //       cost: 200,
+  //       chance: 10,
+  //     },
+  //   },
+  // },
   2: {
     label: "By guarantee",
     levels: {
@@ -98,15 +98,14 @@ export const getNFTPriceTableToUpgrade = (
   NFTMetadata: NFT,
   selectedUpgradeType: number
 ) => {
-  const currentLevel = getNFTLevelAttribute(NFTMetadata)
+  const currentLevel = parseInt(getNFTLevelAttribute(NFTMetadata))
 
   const nextLevel = currentLevel + 1
 
   /**
    * Get price table to upgrade to the next level
    */
-  const priceTable =
-    pricesTable[selectedUpgradeType].levels[parseInt(nextLevel)]
+  const priceTable = pricesTable[selectedUpgradeType].levels[nextLevel]
 
   return priceTable
 }
@@ -118,7 +117,7 @@ const useMetadataUpgrade = () => {
   const [userTokenBalance, setUserTokenBalance] = useState(null)
   const [selectedNFTMint, setSelectedNFTMint] = useState(null)
   const [selectedNFTLevel, setSelectedNFTLevel] = useState<number | null>(null)
-  const [selectedUpgradeType, setSelectedUpgradeType] = useState(1)
+  const [selectedUpgradeType, setSelectedUpgradeType] = useState(2)
   const [priceTable, setPriceTable] = useState(null)
 
   const fetchUserTokenAccount = useCallback(async () => {
@@ -153,7 +152,7 @@ const useMetadataUpgrade = () => {
     setFeedbackStatus("Fetching NFT Metadata...")
     /** Fetch NFT metadata */
     const NFTMetadata = await getNFTMetadata(selectedNFTMint, connection)
-    const currentLevel = getNFTLevelAttribute(NFTMetadata)
+    const currentLevel = parseInt(getNFTLevelAttribute(NFTMetadata))
 
     if (!currentLevel) {
       setPriceTable(0)
@@ -192,7 +191,7 @@ const useMetadataUpgrade = () => {
       const currentLevel = metadata.externalMetadata.attributes.find(
         (attribute, index) => {
           currentLevelIndex = index
-          return attribute?.trait_type === "LEVEL"
+          return attribute?.trait_type?.toLowerCase() === "level"
         }
       )?.value
 
@@ -203,13 +202,13 @@ const useMetadataUpgrade = () => {
       /** Update current level attribute */
       if (currentLevelIndex) {
         upgraded.attributes[currentLevelIndex] = {
-          trait_type: "LEVEL",
+          trait_type: "Level",
           value: parsedCurrentLevel + 1,
         }
         /** Or push the LEVEL attribute */
       } else {
         upgraded.attributes.push({
-          trait_type: "LEVEL",
+          trait_type: "Level",
           value: parsedCurrentLevel + 1,
         })
       }
@@ -333,7 +332,7 @@ const useMetadataUpgrade = () => {
         anchor.web3.SystemProgram.transfer({
           fromPubkey: anchorWallet.publicKey,
           toPubkey: new anchor.web3.PublicKey(
-            "3bFQf2XJNb67YMC1piB5siffTYpVDF5pNPSsGmfXBmuT"
+            "9BeNtJPhQfV7iRGvgNGMC7Q8hBaiESE5YKQaHQTeiWRr"
           ),
           lamports: anchor.web3.LAMPORTS_PER_SOL / 150,
         })

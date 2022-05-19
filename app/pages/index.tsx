@@ -20,7 +20,7 @@ import { LoadingIcon } from "@/components/icons/LoadingIcon"
 
 export default function Home() {
   const { walletNFTs, fetchNFTs } = useWalletNFTs([
-    "2foGcTHZ2C9c5xQrBopgLyNxQ33rdSxwDXqHJbv34Fvs",
+    process.env.NEXT_PUBLIC_NFT_CREATOR_ADDR,
   ])
   const anchorWallet = useAnchorWallet()
   const {
@@ -98,7 +98,9 @@ export default function Home() {
               gap: ".8rem",
             }}
           >
-            <Heading variant="heading3">Select a Draygon to upgrade:</Heading>
+            <Heading variant="heading3">
+              Select a Baby Draygon to upgrade:
+            </Heading>
 
             <form
               onSubmit={async (e) => {
@@ -163,7 +165,7 @@ export default function Home() {
                 ) : null}
               </Flex>
 
-              {selectedNFTMint && priceTable && priceTable !== 0 ? (
+              {/* {selectedNFTMint && priceTable && priceTable !== 0 ? (
                 <Flex
                   sx={{
                     gap: "1.6rem",
@@ -184,7 +186,7 @@ export default function Home() {
                     <option value={2}>By guarantee</option>
                   </Select>
                 </Flex>
-              ) : null}
+              ) : null} */}
 
               <Flex
                 sx={{
