@@ -40,67 +40,73 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Draygon Upgrade</title>
-        <meta name="description" content="Upgrade your Draygon" />
+        <title>Deadsouls Upgrade</title>
+        <meta name="description" content="Upgrade your Deadsouls" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Header />
       <main
         sx={{
+          "&:before": {
+            content: "''",
+            backgroundImage: "url(dead_souls.png)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundAttachment: "fixed",
+            minHeight: "100vh",
+            opacity: 0.4,
+            zIndex: 0,
+            position: "fixed",
+            left: 0,
+            top: 0,
+            width: "100%",
+            height: "100%",
+            backgroundPosition: "50% 0",
+            pointerEvents: "none",
+          },
+        }}
+      ></main>
+
+      <main
+        sx={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: "8rem",
+          marginTop: "2.4rem",
         }}
       >
-        <Heading
+        {/* <Heading
           sx={{
             zIndex: 1,
             fontSize: "4rem",
             position: "relative",
-
-            ":before": {
-              content: "''",
-              width: "270px",
-              height: "270px",
-              borderRadius: "50%",
-              backgroundColor: "#281b69",
-              filter: "blur(40px)",
-              margin: "auto",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              top: 0,
-              bottom: 0,
-              zIndex: -1,
-            },
           }}
           mb=".8rem"
           variant="heading1"
         >
-          Upgrade your Draygon
-        </Heading>
+          Upgrade your Deadsoul
+        </Heading> */}
         {/* <Text>Quickstart template to build Solana web3 applications</Text> */}
-
         <Flex
           my="3.2rem"
           sx={{
             flexDirection: "column",
             gap: "1.6rem",
             marginTop: "12rem",
+            position: "relative",
           }}
         >
+          <Heading>Upgrade your Deadsoul</Heading>
+
           <Flex
             sx={{
               flexDirection: "column",
               gap: ".8rem",
             }}
           >
-            <Heading variant="heading3">
-              Select a Baby Draygon to upgrade:
-            </Heading>
+            <Heading variant="heading3">Select an NFT to upgrade:</Heading>
 
             <form
               onSubmit={async (e) => {
@@ -213,14 +219,14 @@ export default function Home() {
                     }}
                     my="1.6rem"
                   >
-                    {priceTable && selectedNFTLevel ? (
+                    {priceTable && !isNaN(selectedNFTLevel) ? (
                       <>
                         <Text>
                           Current Level: <b>{selectedNFTLevel}</b> | Next Level:{" "}
                           <b>{selectedNFTLevel + 1}</b>
                         </Text>
                         <Text>
-                          Cost: <b>{priceTable.cost}</b> $DRAY |&nbsp; Chance to
+                          Cost: <b>{priceTable.cost}</b> $SOUL |&nbsp; Chance to
                           upgrade: <b>{priceTable.chance}%</b>
                         </Text>
                       </>
@@ -243,7 +249,7 @@ export default function Home() {
                   upgrade!
                 </Button>
                 <Text my=".8rem">
-                  Your Balance: <b>{userTokenBalance || `0`}</b> $DRAY
+                  Your Balance: <b>{userTokenBalance || `0`}</b> $SOUL
                 </Text>
                 <Flex
                   sx={{

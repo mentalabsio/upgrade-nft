@@ -15,9 +15,6 @@ const Header = () => {
         position: "sticky",
         top: 0,
         zIndex: 9,
-        background: (theme) => theme.colors?.backgroundGradient,
-        borderBottom: "1px solid",
-        borderColor: "background2",
       }}
     >
       <Container>
@@ -32,21 +29,16 @@ const Header = () => {
           <Link href="/" passHref>
             <Flex as="a" sx={{ alignItems: "center", flexDirection: "column" }}>
               <Flex sx={{ alignItems: "center" }}>
-                <Text as="h1" variant="headingSpecial" ml=".4rem">
-                  Draygon Upgrade
-                </Text>
+                <img
+                  sx={{
+                    maxHeight: "72px",
+                  }}
+                  src="/Logo-1.png"
+                  alt="Dead Souls"
+                />
               </Flex>
             </Flex>
           </Link>
-          <Text
-            variant="small"
-            sx={{
-              marginRight: "auto",
-            }}
-          >
-            &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-            {process.env.NEXT_PUBLIC_CONNECTION_NETWORK}
-          </Text>
 
           <Flex
             as="nav"
