@@ -27,10 +27,6 @@ export const feeTokenAddress = new anchor.web3.PublicKey(
   process.env.NEXT_PUBLIC_FEE_TOKEN_ADDRESS
 )
 
-const incineratorAddress = new web3.PublicKey(
-  "9BeNtJPhQfV7iRGvgNGMC7Q8hBaiESE5YKQaHQTeiWRr"
-)
-
 export const pricesTable = {
   // 1: {
   //   label: "By chance",
@@ -262,30 +258,6 @@ const useMetadataUpgrade = () => {
         additionalInstructions.push(createAtaInstruction)
       }
 
-      const feeIncineratorAtaAddress =
-        await anchor.utils.token.associatedAddress({
-          mint: feeTokenAddress,
-          owner: incineratorAddress,
-        })
-
-      const feeIncineratorAtaAccountInfo = await connection.getAccountInfo(
-        feeIncineratorAtaAddress
-      )
-
-      if (!feeIncineratorAtaAccountInfo) {
-        const createAtaInstruction =
-          Token.createAssociatedTokenAccountInstruction(
-            ASSOCIATED_TOKEN_PROGRAM_ID,
-            TOKEN_PROGRAM_ID,
-            feeTokenAddress,
-            feeIncineratorAtaAddress,
-            incineratorAddress,
-            anchorWallet.publicKey
-          )
-
-        additionalInstructions.push(createAtaInstruction)
-      }
-
       const anchorProgram = new Program(idl, programId, provider)
 
       /** Cost + 9 decimals */
@@ -310,9 +282,7 @@ const useMetadataUpgrade = () => {
 
           userAccount: anchorWallet.publicKey,
           userTokenAccount,
-
-          incinerator: incineratorAddress,
-          feeIncineratorAta: feeIncineratorAtaAddress,
+          feeToken: feeTokenAddress,
           feePayerAta: feePayerAtaAddress,
 
           tokenMetadataProgram: MetadataProgram.PUBKEY,

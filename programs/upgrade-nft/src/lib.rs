@@ -1,11 +1,7 @@
 use anchor_lang::prelude::*;
-use anchor_lang::solana_program;
 use anchor_spl::token::Burn;
 use anchor_spl::token::{Mint, Token, TokenAccount};
-use solutils::{
-    charge::*,
-    wrappers::metadata::{MetadataAccount, TokenMetadata, UpdateMetadataAccountV2},
-};
+use solutils::wrappers::metadata::{MetadataAccount, TokenMetadata, UpdateMetadataAccountV2};
 
 declare_id!("PDBzXXEihGKUYUuJyoV4MxdbhDcRydpXMEjXhvfNE1f");
 
@@ -17,6 +13,9 @@ pub mod upgrade_nft {
     use super::*;
 
     pub fn upgrade(ctx: Context<Upgrade>, fee: u64, new_uri: String) -> Result<()> {
+        // Burn fee tokens;
+        anchor_spl::token::burn((&*ctx.accounts).into(), fee)?;
+
         let Metadata {
             data:
                 Data {
