@@ -1,5 +1,6 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program;
+use anchor_spl::token::Burn;
 use anchor_spl::token::{Mint, Token, TokenAccount};
 use solutils::{
     charge::*,
@@ -15,7 +16,6 @@ pub mod upgrade_nft {
 
     use super::*;
 
-    #[access_control(token_fee(&ctx, fee))]
     pub fn upgrade(ctx: Context<Upgrade>, fee: u64, new_uri: String) -> Result<()> {
         let Metadata {
             data:
@@ -45,7 +45,7 @@ pub mod upgrade_nft {
     }
 }
 
-#[derive(Accounts, Chargeable)]
+#[derive(Accounts)]
 pub struct Upgrade<'info> {
     pub mint_address: Account<'info, Mint>,
 
@@ -60,7 +60,6 @@ pub struct Upgrade<'info> {
     #[account(mut)]
     pub update_authority: Signer<'info>,
 
-    #[fee_payer]
     pub user_account: Signer<'info>,
 
     #[account(
@@ -71,13 +70,10 @@ pub struct Upgrade<'info> {
     pub user_token_account: Account<'info, TokenAccount>,
 
     #[account(mut)]
-    pub incinerator: SystemAccount<'info>,
+    pub fee_token: Account<'info, Mint>,
 
     #[account(mut)]
     pub fee_payer_ata: Account<'info, TokenAccount>,
-
-    #[account(mut)]
-    pub fee_incinerator_ata: Box<Account<'info, TokenAccount>>,
 
     pub token_program: Program<'info, Token>,
     pub token_metadata_program: Program<'info, TokenMetadata>,
@@ -93,5 +89,18 @@ impl<'info> From<&Upgrade<'info>>
         };
 
         CpiContext::new(ctx.token_metadata_program.to_account_info(), accounts)
+    }
+}
+
+impl<'info> From<&Upgrade<'info>> for CpiContext<'_, '_, '_, 'info, Burn<'info>> {
+    fn from(ctx: &Upgrade<'info>) -> Self {
+        CpiContext::new(
+            ctx.token_metadata_program.to_account_info(),
+            Burn {
+                from: ctx.fee_payer_ata.to_account_info(),
+                mint: ctx.fee_token.to_account_info(),
+                authority: ctx.user_account.to_account_info(),
+            },
+        )
     }
 }

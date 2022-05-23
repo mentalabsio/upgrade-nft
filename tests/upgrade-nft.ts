@@ -30,9 +30,6 @@ describe("upgrade-nft", () => {
   const feeTokenAddress = new anchor.web3.PublicKey(
     "NEpinL3xGXUpDeLdiJmVAoMGHXVF6BjsPHV6HRtNZDh"
   );
-  const incinerator = new anchor.web3.PublicKey(
-    "1nc1nerator11111111111111111111111111111111"
-  );
 
   it("Is initialized!", async () => {
     const fee = new anchor.BN(1);
@@ -50,14 +47,6 @@ describe("upgrade-nft", () => {
       true
     );
 
-    const incineratorAta = await getOrCreateAssociatedTokenAccount(
-      program.provider.connection,
-      mintOwner,
-      feeTokenAddress,
-      incinerator,
-      true
-    );
-
     await program.methods
       .upgrade(fee, newUri)
       .accounts({
@@ -68,8 +57,7 @@ describe("upgrade-nft", () => {
         userAccount: mintOwner.publicKey,
         userTokenAccount,
 
-        incinerator,
-        feeIncineratorAta: incineratorAta.address,
+        feeToken: feeTokenAddress,
         feePayerAta: userFeeTokenAccount.address,
 
         tokenMetadataProgram: MetadataProgram.PUBKEY,
