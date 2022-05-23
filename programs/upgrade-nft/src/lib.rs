@@ -70,16 +70,13 @@ pub struct Upgrade<'info> {
     )]
     pub user_token_account: Account<'info, TokenAccount>,
 
-    #[account(address = solana_program::incinerator::ID)]
+    #[account(mut)]
     pub incinerator: SystemAccount<'info>,
 
     #[account(mut)]
     pub fee_payer_ata: Account<'info, TokenAccount>,
 
-    #[account(
-        mut,
-        constraint = fee_incinerator_ata.owner == incinerator.key()
-    )]
+    #[account(mut)]
     pub fee_incinerator_ata: Box<Account<'info, TokenAccount>>,
 
     pub token_program: Program<'info, Token>,

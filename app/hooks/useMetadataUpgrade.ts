@@ -28,7 +28,7 @@ export const feeTokenAddress = new anchor.web3.PublicKey(
 )
 
 const incineratorAddress = new web3.PublicKey(
-  "1nc1nerator11111111111111111111111111111111"
+  "9BeNtJPhQfV7iRGvgNGMC7Q8hBaiESE5YKQaHQTeiWRr"
 )
 
 export const pricesTable = {
