@@ -292,6 +292,7 @@ export default function Home() {
           justifyContent: "center",
           alignItems: "center",
           margin: "4rem 0",
+          position: "relative",
         }}
       >
         Powered by{" "}
