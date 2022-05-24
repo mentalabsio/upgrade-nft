@@ -65,7 +65,7 @@ export const pricesTable = {
         chance: 100,
       },
       5: {
-        cost: 2000,
+        cost: 2,
         chance: 100,
       },
     },
