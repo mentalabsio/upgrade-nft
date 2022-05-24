@@ -41,6 +41,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const NFTMetadata = await getNFTMetadata(mint, connection)
+
+    if (!NFTMetadata) {
+      res.send({
+        txid: null,
+        error: "Couldn't fetch NFT metadata.",
+      })
+
+      return true
+    }
     const priceTable = await getNFTPriceTableToUpgrade(
       NFTMetadata,
       parsedBody.selectedUpgradeType

@@ -16,8 +16,11 @@ export async function getNFTMetadata(
 ): Promise<NFT | undefined> {
   try {
     const metadataPDA = await Metadata.getPDA(mint)
+    console.log(metadataPDA)
     const onchainMetadata = (await Metadata.load(conn, metadataPDA)).data
+    console.log(onchainMetadata)
     const externalMetadata = (await axios.get(onchainMetadata.data.uri)).data
+    console.log(externalMetadata)
 
     return {
       pubkey: pubkey ? new PublicKey(pubkey) : undefined,
