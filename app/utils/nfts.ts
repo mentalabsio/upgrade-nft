@@ -29,7 +29,10 @@ export async function getNFTMetadata(
       externalMetadata,
     }
   } catch (e) {
+    console.log(e)
     console.log(`failed to pull metadata for token ${mint}`)
+
+    return null
   }
 }
 
