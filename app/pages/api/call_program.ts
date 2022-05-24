@@ -7,6 +7,8 @@ import {
   getNFTPriceTableToUpgrade,
 } from "@/hooks/useMetadataUpgrade"
 
+import { hostname } from "os"
+
 const mintOwner = anchor.web3.Keypair.fromSecretKey(
   anchor.utils.bytes.bs58.decode(process.env.MINT_AUTHORITY_PK_BS58)
 )
@@ -20,6 +22,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!endpoint) throw new Error("No RPC endpoint configured.")
 
+    const hostnamee = hostname()
+    console.log(req.headers.host)
+    console.log("hostname ", hostnamee)
+    console.log(res.getHeaders())
     const connection = new anchor.web3.Connection(endpoint, "confirmed")
 
     const parsedBody = JSON.parse(req.body)
@@ -50,6 +56,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       return true
     }
+
     const priceTable = await getNFTPriceTableToUpgrade(
       NFTMetadata,
       parsedBody.selectedUpgradeType
