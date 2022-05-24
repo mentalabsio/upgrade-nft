@@ -30,6 +30,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     /** Check if the price table is correct for the current mint. */
 
     if (!mint || !parsedBody.selectedUpgradeType || !parsedBody.priceTable) {
+      console.log(mint)
+      console.log(parsedBody)
       res.send({
         txid: null,
         error: "Invalid request.",
@@ -67,6 +69,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (parsedBody.feeTokenAddress !== feeTokenAddress.toString()) {
+      console.log(feeTokenAddress.toString())
       res.send({
         txid: null,
         error: "Invalid request.",
