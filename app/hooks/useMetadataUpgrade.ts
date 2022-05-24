@@ -53,23 +53,23 @@ export const pricesTable = {
     label: "By guarantee",
     levels: {
       1: {
-        cost: 100,
+        cost: 500,
         chance: 100,
       },
       2: {
-        cost: 250,
+        cost: 1000,
         chance: 100,
       },
       3: {
-        cost: 400,
+        cost: 1500,
         chance: 100,
       },
       4: {
-        cost: 800,
+        cost: 2000,
         chance: 100,
       },
       5: {
-        cost: 2000,
+        cost: 3000,
         chance: 100,
       },
     },
