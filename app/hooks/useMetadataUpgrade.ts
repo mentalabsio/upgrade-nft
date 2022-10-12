@@ -211,7 +211,7 @@ const useMetadataUpgrade = () => {
         upgraded
       )
 
-      const provider = new anchor.Provider(connection, anchorWallet, {
+      const provider = new anchor.AnchorProvider(connection, anchorWallet, {
         preflightCommitment: "recent",
       })
 
