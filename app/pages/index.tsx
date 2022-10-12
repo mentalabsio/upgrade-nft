@@ -40,49 +40,59 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Draygon Upgrade</title>
-        <meta name="description" content="Upgrade your Draygon" />
+        <title>Dskullys Essence Upgrade</title>
+        <meta name="description" content="Dskullys Essence Upgrade" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Header />
+
       <main
         sx={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: "8rem",
+          marginTop: "2.4rem",
         }}
       >
-        <Heading
+        <Flex
           sx={{
-            zIndex: 1,
-            fontSize: "4rem",
-            position: "relative",
-
-            ":before": {
-              content: "''",
-              width: "270px",
-              height: "270px",
-              borderRadius: "50%",
-              backgroundColor: "#281b69",
-              filter: "blur(40px)",
-              margin: "auto",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              top: 0,
-              bottom: 0,
-              zIndex: -1,
-            },
+            alignItems: "center",
           }}
-          mb=".8rem"
-          variant="heading1"
         >
-          Upgrade your Draygon
-        </Heading>
-        {/* <Text>Quickstart template to build Solana web3 applications</Text> */}
+          <img
+            sx={{
+              maxWidth: "32rem",
+            }}
+            src="/animation.png"
+          />
+
+          <Flex
+            sx={{
+              flexDirection: "column",
+            }}
+          >
+            <Heading
+              sx={{
+                zIndex: 1,
+                position: "relative",
+                color: "#FFFFFF",
+                fontFamily: "Quarry Bones, Sans-serif",
+                fontSize: "3.2vw",
+                fontWeight: "500",
+                textTransform: "uppercase",
+              }}
+              mb=".8rem"
+              variant="heading1"
+            >
+              Set the Essence
+            </Heading>
+            <Text variant="heading3">
+              And lock your Dskully into its original form forever
+            </Text>
+          </Flex>
+        </Flex>
 
         <Flex
           my="3.2rem"
@@ -90,6 +100,7 @@ export default function Home() {
             flexDirection: "column",
             gap: "1.6rem",
             marginTop: "12rem",
+            position: "relative",
           }}
         >
           <Flex
@@ -99,7 +110,7 @@ export default function Home() {
             }}
           >
             <Heading variant="heading3">
-              Select a Baby Draygon to upgrade:
+              Select a Dskully to set the Essence:
             </Heading>
 
             <form
@@ -213,15 +224,15 @@ export default function Home() {
                     }}
                     my="1.6rem"
                   >
-                    {priceTable && selectedNFTLevel ? (
+                    {priceTable && !isNaN(selectedNFTLevel) ? (
                       <>
                         <Text>
                           Current Level: <b>{selectedNFTLevel}</b> | Next Level:{" "}
                           <b>{selectedNFTLevel + 1}</b>
                         </Text>
                         <Text>
-                          Cost: <b>{priceTable.cost}</b> $DRAY |&nbsp; Chance to
-                          upgrade: <b>{priceTable.chance}%</b>
+                          Cost: <b>{priceTable.cost}</b> $SKULL |&nbsp; Chance
+                          to upgrade: <b>{priceTable.chance}%</b>
                         </Text>
                       </>
                     ) : null}
@@ -242,9 +253,9 @@ export default function Home() {
                 >
                   upgrade!
                 </Button>
-                <Text my=".8rem">
-                  Your Balance: <b>{userTokenBalance || `0`}</b> $DRAY
-                </Text>
+                {/* <Text my=".8rem">
+                  Your Balance: <b>{userTokenBalance || `0`}</b> $SKULL
+                </Text> */}
                 <Flex
                   sx={{
                     alignItems: "center",
@@ -279,44 +290,6 @@ export default function Home() {
           </Flex>
         </Flex>
       </main>
-
-      <footer
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          margin: "4rem 0",
-        }}
-      >
-        Powered by{" "}
-        <a
-          href="https://twitter.com/magicshards"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            variant="small"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <img
-              sx={{
-                height: "32px",
-              }}
-              src="/magicshards320px.gif"
-              alt="Magic Shards"
-              height={32}
-            />
-            MagicShards
-          </Text>
-        </a>
-      </footer>
     </>
   )
 }

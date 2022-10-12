@@ -15,9 +15,6 @@ const Header = () => {
         position: "sticky",
         top: 0,
         zIndex: 9,
-        background: (theme) => theme.colors?.backgroundGradient,
-        borderBottom: "1px solid",
-        borderColor: "background2",
       }}
     >
       <Container>
@@ -31,22 +28,9 @@ const Header = () => {
         >
           <Link href="/" passHref>
             <Flex as="a" sx={{ alignItems: "center", flexDirection: "column" }}>
-              <Flex sx={{ alignItems: "center" }}>
-                <Text as="h1" variant="headingSpecial" ml=".4rem">
-                  Draygon Upgrade
-                </Text>
-              </Flex>
+              <Flex sx={{ alignItems: "center" }}></Flex>
             </Flex>
           </Link>
-          <Text
-            variant="small"
-            sx={{
-              marginRight: "auto",
-            }}
-          >
-            &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-            {process.env.NEXT_PUBLIC_CONNECTION_NETWORK}
-          </Text>
 
           <Flex
             as="nav"
@@ -100,13 +84,12 @@ const Header = () => {
                 padding: "1.6rem",
                 height: "8rem",
                 alignItems: "center",
+                ...(!isMobileMenuActive && { display: "none" }),
               }}
             >
               <Button
                 sx={{
                   padding: ".8rem",
-
-                  ...(!isMobileMenuActive && { display: "none" }),
                 }}
                 onClick={() => setIsMobileMenuActive(false)}
               >

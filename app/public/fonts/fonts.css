@@ -8,3 +8,18 @@
   src: url("/fonts/AvertaStdBold/font.woff2") format("woff2"),
     url("/fonts/AvertaStdBold/font.woff") format("woff");
 }
+
+
+@font-face {
+  font-family: "Elianto";
+  font-display: auto;
+  font-weight: 100;
+  src: url(https://dskullys.com/wp-content/uploads/2022/04/Elianto-Regular.ttf) format('TrueType');
+}
+
+@font-face {
+  font-family: "Quarry Bones";
+  font-display: auto;
+  font-weight: 100;
+  src: url("/fonts/QuarryBones-9YXML.otf") format('OpenType');
+}

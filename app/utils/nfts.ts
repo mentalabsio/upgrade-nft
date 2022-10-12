@@ -27,6 +27,8 @@ export async function getNFTMetadata(
     }
   } catch (e) {
     console.log(`failed to pull metadata for token ${mint}`)
+
+    return null
   }
 }
 

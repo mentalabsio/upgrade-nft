@@ -52,20 +52,24 @@ export const pricesTable = {
   2: {
     label: "By guarantee",
     levels: {
+      1: {
+        cost: 500,
+        chance: 100,
+      },
       2: {
-        cost: 250,
+        cost: 1000,
         chance: 100,
       },
       3: {
-        cost: 400,
+        cost: 1500,
         chance: 100,
       },
       4: {
-        cost: 800,
+        cost: 2000,
         chance: 100,
       },
       5: {
-        cost: 2000,
+        cost: 3000,
         chance: 100,
       },
     },
@@ -78,16 +82,7 @@ export const getNFTLevelAttribute = (NFTMetadata: NFT) => {
     (attr) => attr?.trait_type?.toLowerCase() === "level"
   )?.value
 
-  /**
-   * Something is wrong if there is no level attribute.
-   */
-  if (!currentLevel) {
-    console.error("NFT has no Level attribute. Please report this.")
-
-    return null
-  }
-
-  return currentLevel
+  return currentLevel || 0
 }
 
 export const getNFTPriceTableToUpgrade = (
@@ -150,7 +145,7 @@ const useMetadataUpgrade = () => {
     const NFTMetadata = await getNFTMetadata(selectedNFTMint, connection)
     const currentLevel = parseInt(getNFTLevelAttribute(NFTMetadata))
 
-    if (!currentLevel) {
+    if (isNaN(currentLevel)) {
       setPriceTable(0)
 
       setFeedbackStatus("")
