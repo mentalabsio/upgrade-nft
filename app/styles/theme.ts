@@ -61,11 +61,11 @@ const theme: Theme = {
     primary: {
       display: "flex",
       color: "heading",
-      background: (theme) => theme.colors?.primaryGradient,
+      background: (theme) => theme.colors?.background,
       border: "1px solid transparent",
       transition: "all .125s linear",
       alignItems: "center",
-      borderColor: "primary",
+      borderColor: "text",
       opacity: 1,
       fontWeight: 600,
 

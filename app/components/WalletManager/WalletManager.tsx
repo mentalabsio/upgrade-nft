@@ -39,8 +39,12 @@ const WalletManager = () => {
               "&:hover": {
                 background: "unset",
                 backgroundImage: "unset!important",
-                color: "primary",
+                color: "text",
                 cursor: "pointer",
+              },
+              "&:not([disabled]):hover": {
+                backgroundColor: "unset!important",
+                opacity: 0.8,
               },
             }}
           ></WalletMultiButton>
@@ -55,11 +59,11 @@ const WalletManager = () => {
               height: "unset",
               alignSelf: "flex-end",
               display: "flex",
-              background: (theme) => theme.colors?.primaryGradient,
+              background: (theme) => theme.colors?.background,
               border: ".2rem solid transparent",
               transition: "all .125s linear",
               alignItems: "center",
-              borderColor: "primary",
+              borderColor: "text",
               opacity: 1,
               fontWeight: 500,
 
