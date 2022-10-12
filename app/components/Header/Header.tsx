@@ -28,15 +28,7 @@ const Header = () => {
         >
           <Link href="/" passHref>
             <Flex as="a" sx={{ alignItems: "center", flexDirection: "column" }}>
-              <Flex sx={{ alignItems: "center" }}>
-                <img
-                  sx={{
-                    maxHeight: "72px",
-                  }}
-                  src="/Logo-1.png"
-                  alt="Dead Souls"
-                />
-              </Flex>
+              <Flex sx={{ alignItems: "center" }}></Flex>
             </Flex>
           </Link>
 
@@ -92,13 +84,12 @@ const Header = () => {
                 padding: "1.6rem",
                 height: "8rem",
                 alignItems: "center",
+                ...(!isMobileMenuActive && { display: "none" }),
               }}
             >
               <Button
                 sx={{
                   padding: ".8rem",
-
-                  ...(!isMobileMenuActive && { display: "none" }),
                 }}
                 onClick={() => setIsMobileMenuActive(false)}
               >

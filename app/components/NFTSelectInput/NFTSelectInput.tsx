@@ -121,7 +121,7 @@ const NFTSelectInput = ({
                 : "Loading NFTs..."
               : "Connect your wallet."
           }
-          imgSrc="/Logo-1.png"
+          imgSrc="/animation.png"
         />
       }
     />

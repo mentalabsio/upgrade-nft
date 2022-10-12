@@ -40,33 +40,12 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Deadsouls Upgrade</title>
-        <meta name="description" content="Upgrade your Deadsouls" />
+        <title>Dskullys Essence Upgrade</title>
+        <meta name="description" content="Dskullys Essence Upgrade" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Header />
-      <main
-        sx={{
-          "&:before": {
-            content: "''",
-            backgroundImage: "url(dead_souls.png)",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundAttachment: "fixed",
-            minHeight: "100vh",
-            opacity: 0.4,
-            zIndex: 0,
-            position: "fixed",
-            left: 0,
-            top: 0,
-            width: "100%",
-            height: "100%",
-            backgroundPosition: "50% 0",
-            pointerEvents: "none",
-          },
-        }}
-      ></main>
 
       <main
         sx={{
@@ -77,18 +56,44 @@ export default function Home() {
           marginTop: "2.4rem",
         }}
       >
-        {/* <Heading
+        <Flex
           sx={{
-            zIndex: 1,
-            fontSize: "4rem",
-            position: "relative",
+            alignItems: "center",
           }}
-          mb=".8rem"
-          variant="heading1"
         >
-          Upgrade your Deadsoul
-        </Heading> */}
-        {/* <Text>Quickstart template to build Solana web3 applications</Text> */}
+          <img
+            sx={{
+              maxWidth: "32rem",
+            }}
+            src="/animation.png"
+          />
+
+          <Flex
+            sx={{
+              flexDirection: "column",
+            }}
+          >
+            <Heading
+              sx={{
+                zIndex: 1,
+                position: "relative",
+                color: "#FFFFFF",
+                fontFamily: "Quarry Bones, Sans-serif",
+                fontSize: "3.2vw",
+                fontWeight: "500",
+                textTransform: "uppercase",
+              }}
+              mb=".8rem"
+              variant="heading1"
+            >
+              Set the Essence
+            </Heading>
+            <Text variant="heading3">
+              And lock your Dskully into its original form forever
+            </Text>
+          </Flex>
+        </Flex>
+
         <Flex
           my="3.2rem"
           sx={{
@@ -98,15 +103,15 @@ export default function Home() {
             position: "relative",
           }}
         >
-          <Heading>Upgrade your Deadsoul</Heading>
-
           <Flex
             sx={{
               flexDirection: "column",
               gap: ".8rem",
             }}
           >
-            <Heading variant="heading3">Select an NFT to upgrade:</Heading>
+            <Heading variant="heading3">
+              Select a Dskully to set the Essence:
+            </Heading>
 
             <form
               onSubmit={async (e) => {
@@ -226,8 +231,8 @@ export default function Home() {
                           <b>{selectedNFTLevel + 1}</b>
                         </Text>
                         <Text>
-                          Cost: <b>{priceTable.cost}</b> $SOUL |&nbsp; Chance to
-                          upgrade: <b>{priceTable.chance}%</b>
+                          Cost: <b>{priceTable.cost}</b> $SKULL |&nbsp; Chance
+                          to upgrade: <b>{priceTable.chance}%</b>
                         </Text>
                       </>
                     ) : null}
@@ -248,9 +253,9 @@ export default function Home() {
                 >
                   upgrade!
                 </Button>
-                <Text my=".8rem">
-                  Your Balance: <b>{userTokenBalance || `0`}</b> $SOUL
-                </Text>
+                {/* <Text my=".8rem">
+                  Your Balance: <b>{userTokenBalance || `0`}</b> $SKULL
+                </Text> */}
                 <Flex
                   sx={{
                     alignItems: "center",
@@ -285,45 +290,6 @@ export default function Home() {
           </Flex>
         </Flex>
       </main>
-
-      <footer
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          margin: "4rem 0",
-          position: "relative",
-        }}
-      >
-        Powered by{" "}
-        <a
-          href="https://twitter.com/magicshards"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            variant="small"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <img
-              sx={{
-                height: "32px",
-              }}
-              src="/magicshards320px.gif"
-              alt="Magic Shards"
-              height={32}
-            />
-            MagicShards
-          </Text>
-        </a>
-      </footer>
     </>
   )
 }

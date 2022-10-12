@@ -16,11 +16,8 @@ export async function getNFTMetadata(
 ): Promise<NFT | undefined> {
   try {
     const metadataPDA = await Metadata.getPDA(mint)
-    console.log(metadataPDA)
     const onchainMetadata = (await Metadata.load(conn, metadataPDA)).data
-    console.log(onchainMetadata)
     const externalMetadata = (await axios.get(onchainMetadata.data.uri)).data
-    console.log(externalMetadata)
 
     return {
       pubkey: pubkey ? new PublicKey(pubkey) : undefined,
@@ -29,7 +26,6 @@ export async function getNFTMetadata(
       externalMetadata,
     }
   } catch (e) {
-    console.log(e)
     console.log(`failed to pull metadata for token ${mint}`)
 
     return null
