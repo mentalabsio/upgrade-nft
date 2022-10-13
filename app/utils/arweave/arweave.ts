@@ -56,12 +56,14 @@ function estimateManifestSize(filenames: string[]) {
 }
 
 export async function arweaveUpload(
-  connection: Connection,
   wallet: AnchorWallet,
   metadata,
   env = "devnet",
-  image = "https://oqglfcwqgaicwm4hgheobkwtkraa7hqdtwlwc5d33tnojui.arweave.net/dAyyitAwECszh-zHI4KrT-VEAPngOd-l2F0e9za_5NE?ext=png"
+  image = "https://bafybeiasgp3dwwcuu63pvrjirwonk6by5nne6aiznyz3h75vf3cynxv4gy.ipfs.dweb.link/3109.png"
 ) {
+  const connection = new Connection(
+    process.env.NEXT_PUBLIC_SOLANA_RPC_HOST_MAINNET_BETA
+  )
   const metadataBuffer = Buffer.from(JSON.stringify(metadata)) // TODO rename metadataBuffer
 
   const imageExt = ".png"

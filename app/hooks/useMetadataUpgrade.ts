@@ -51,16 +51,12 @@ const useMetadataUpgrade = () => {
       } else {
         toUpgrade.attributes.push({
           trait_type: "Essence",
-          value: true,
+          value: "Set",
         })
       }
 
       setFeedbackStatus("Uploading new metadata...")
-      const [link, imageLink] = await arweaveUpload(
-        connection,
-        anchorWallet,
-        toUpgrade
-      )
+      const [link, imageLink] = await arweaveUpload(anchorWallet, toUpgrade)
 
       const provider = new anchor.AnchorProvider(connection, anchorWallet, {
         preflightCommitment: "recent",
