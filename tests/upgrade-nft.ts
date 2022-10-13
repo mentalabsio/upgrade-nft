@@ -1,76 +1,63 @@
 import {
   MetadataData,
   MetadataProgram,
-} from "@metaplex-foundation/mpl-token-metadata";
-import * as anchor from "@project-serum/anchor";
-import { Program } from "@project-serum/anchor";
-import { getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
-import assert from "assert";
+} from "@metaplex-foundation/mpl-token-metadata"
+import * as anchor from "@project-serum/anchor"
+import { Program } from "@project-serum/anchor"
+import assert from "assert"
 
-import { UpgradeNft } from "../target/types/upgrade_nft";
+import { UpgradeNft } from "../target/types/upgrade_nft"
 
 describe("upgrade-nft", () => {
   // Configure the client to use the local cluster.
-  anchor.setProvider(anchor.Provider.env());
+  anchor.setProvider(anchor.Provider.env())
 
-  const program = anchor.workspace.UpgradeNft as Program<UpgradeNft>;
+  const program = anchor.workspace.UpgradeNft as Program<UpgradeNft>
 
-  const mintOwner = anchor.web3.Keypair.fromSecretKey(
+  const updateAuthority = anchor.web3.Keypair.fromSecretKey(
     anchor.utils.bytes.bs58.decode(
-      "32Y9pum9ncAAhtGtadt7jMwUyYEHUzNbnKtB1rveBA1h6r2ttsnZm7XRnBs5RVQjcuwTj41mnTAkMAnJaWgsjuBA"
+      "i4FDfFrETVUApv1pmsfKJoQ1kMthYk5iAyn1z9PsaBi7RrAAHAReVs6eUv1QuwVzuLBdqwZs4AdYndKaeAip5xn"
     )
-  );
-  const mintAddress = new anchor.web3.PublicKey(
-    "FJfJKCPFVwa5earejuCuVgm2tVDABSzwCDDgvWEKSz4y"
-  );
-  const userTokenAccount = new anchor.web3.PublicKey(
-    "3zMJxxX9fpcDJqWrv4zuU4689JzUpvvTvqHwJuUzGxa6"
-  );
+  )
 
-  const feeTokenAddress = new anchor.web3.PublicKey(
-    "NEpinL3xGXUpDeLdiJmVAoMGHXVF6BjsPHV6HRtNZDh"
-  );
+  /** NFT mint */
+  const mintAddress = new anchor.web3.PublicKey(
+    "DjJMhJiMPHLzX934RS62R4rZT7fnx7PC3CpdGPXDyWT2"
+  )
+
+  /** NFt owner ATA */
+  const userTokenAccount = new anchor.web3.PublicKey(
+    "DafRy7McBfFpgihRzdakP7TLbQsDLErv8yyANWk4zfDM"
+  )
 
   it("Is initialized!", async () => {
-    const fee = new anchor.BN(1);
-    const newUri = "https://example.com/new";
+    const newUri = "https://example.com/new"
 
     const [tokenMetadata, _] = await MetadataProgram.findMetadataAccount(
       mintAddress
-    );
-
-    const userFeeTokenAccount = await getOrCreateAssociatedTokenAccount(
-      program.provider.connection,
-      mintOwner,
-      feeTokenAddress,
-      mintOwner.publicKey,
-      true
-    );
+    )
 
     await program.methods
-      .upgrade(fee, newUri)
+      .upgrade(newUri)
       .accounts({
         mintAddress,
         tokenMetadata,
-        updateAuthority: mintOwner.publicKey,
+        updateAuthority: updateAuthority.publicKey,
 
-        userAccount: mintOwner.publicKey,
+        userAccount: updateAuthority.publicKey,
         userTokenAccount,
-
-        feeToken: feeTokenAddress,
-        feePayerAta: userFeeTokenAccount.address,
 
         tokenMetadataProgram: MetadataProgram.PUBKEY,
       })
-      .signers([mintOwner])
-      .rpc();
+      .signers([updateAuthority])
+      .rpc()
 
     const metadataData = MetadataData.deserialize(
       (await program.provider.connection.getAccountInfo(tokenMetadata)).data
-    );
+    )
 
-    console.log(metadataData);
+    console.log(metadataData)
 
-    assert.deepStrictEqual(metadataData.data.uri, newUri);
-  });
-});
+    assert.deepStrictEqual(metadataData.data.uri, newUri)
+  })
+})
