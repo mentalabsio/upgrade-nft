@@ -12,9 +12,6 @@ pub mod upgrade_nft {
     use super::*;
 
     pub fn upgrade(ctx: Context<Upgrade>, new_uri: String) -> Result<()> {
-        // Burn fee tokens;
-        // anchor_spl::token::burn((&*ctx.accounts).into(), fee)?;
-
         let Metadata {
             data: Data { name, symbol, creators, seller_fee_basis_points, .. },
             uses,
@@ -60,12 +57,6 @@ pub struct Upgrade<'info> {
     )]
     pub user_token_account: Account<'info, TokenAccount>,
 
-    // #[account(mut)]
-    // pub fee_token: Account<'info, Mint>,
-
-    // #[account(mut)]
-    // pub fee_payer_ata: Account<'info, TokenAccount>,
-
     pub token_program: Program<'info, Token>,
     pub token_metadata_program: Program<'info, TokenMetadata>,
 }
@@ -81,13 +72,3 @@ for CpiContext<'_, '_, '_, 'info, UpdateMetadataAccountV2<'info>> {
         CpiContext::new(ctx.token_metadata_program.to_account_info(), accounts)
     }
 }
-
-// impl<'info> From<&Upgrade<'info>> for CpiContext<'_, '_, '_, 'info, Burn<'info>> {
-//     fn from(ctx: &Upgrade<'info>) -> Self {
-//         CpiContext::new(ctx.token_metadata_program.to_account_info(), Burn {
-//             from: ctx.fee_payer_ata.to_account_info(),
-//             mint: ctx.fee_token.to_account_info(),
-//             authority: ctx.user_account.to_account_info(),
-//         })
-//     }
-// }
