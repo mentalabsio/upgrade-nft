@@ -35,8 +35,12 @@ const useMetadataUpgrade = () => {
 
       const metadata = await getNFTMetadata(mint.toString(), connection)
 
+      if (!metadata.externalMetadata) {
+        throw new Error("Invalid NFT Metadata.")
+      }
+
       /** Try to find the essence attribute */
-      const essenceAttributeValue = metadata.externalMetadata.attributes.find(
+      const essenceAttributeValue = metadata.externalMetadata?.attributes.find(
         (attribute) => {
           return attribute?.trait_type?.toLowerCase() === "essence"
         }

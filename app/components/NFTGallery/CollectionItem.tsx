@@ -153,7 +153,7 @@ const CollectionItem = (props: Props) => {
           mt: ".8rem",
         }}
       >
-        {externalMetadata.name}
+        {onchainMetadata.data.name}
         {/* <br />
     <a
       href={`https://solscan.io/token/${onchainMetadata.metaData.mint}`}
