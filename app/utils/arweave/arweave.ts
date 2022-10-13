@@ -1,7 +1,6 @@
 import * as anchor from "@project-serum/anchor"
 import FormData from "form-data"
 import path from "path"
-import log from "loglevel"
 import fetch from "node-fetch"
 import { calculate } from "@metaplex/arweave-cost"
 import { Connection } from "@metaplex/js"
@@ -88,7 +87,7 @@ export async function arweaveUpload(
     anchor.web3.SystemProgram.transfer({
       fromPubkey: wallet.publicKey,
       toPubkey: ARWEAVE_PAYMENT_WALLET,
-      lamports: storageCost,
+      lamports: Number(storageCost.toFixed(0)),
     }),
   ]
 

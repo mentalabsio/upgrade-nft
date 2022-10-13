@@ -24,8 +24,8 @@ const theme: Theme = {
   colors: {
     background: "rgb(4, 4, 3)",
     text: "rgb(226, 217, 211)",
-    primary: "rgba(160, 64, 0, .7)",
-    primaryGradient: getGradient("rgba(160, 64, 0, .7)"),
+    primary: "rgb(4, 4, 3)",
+    primaryGradient: getGradient("rgb(4, 4, 3)"),
     heading: "rgb(226, 217, 211)",
     background2: "#1E1E24",
     backgroundGradient: getGradient("rgb(4, 4, 3)"),
@@ -65,13 +65,13 @@ const theme: Theme = {
       border: "1px solid transparent",
       transition: "all .125s linear",
       alignItems: "center",
-      borderColor: "primary",
+      borderColor: "text",
       opacity: 1,
       fontWeight: 600,
 
       "&:not(:disabled):hover": {
         bg: "background",
-        borderColor: "primary",
+        borderColor: "text",
         cursor: "pointer",
         opacity: 0.7,
       },

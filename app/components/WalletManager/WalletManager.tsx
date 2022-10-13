@@ -39,7 +39,9 @@ const WalletManager = () => {
               "&:hover": {
                 background: "unset",
                 backgroundImage: "unset!important",
-                color: "primary",
+                backgroundColor: "unset!important",
+                color: "text",
+                opacity: 0.8,
                 cursor: "pointer",
               },
             }}
@@ -59,7 +61,7 @@ const WalletManager = () => {
               border: ".2rem solid transparent",
               transition: "all .125s linear",
               alignItems: "center",
-              borderColor: "primary",
+              borderColor: "text",
               opacity: 1,
               fontWeight: 500,
 

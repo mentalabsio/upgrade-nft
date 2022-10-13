@@ -5,9 +5,12 @@ import {
 } from "@solana/wallet-adapter-react"
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base"
 import {
+  BackpackWalletAdapter,
   LedgerWalletAdapter,
   PhantomWalletAdapter,
+  SlopeWalletAdapter,
   SolflareWalletAdapter,
+  SolletWalletAdapter,
 } from "@solana/wallet-adapter-wallets"
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui"
 
@@ -32,6 +35,9 @@ const Wallet = ({ children }: { children: React.ReactChild }) => {
       new PhantomWalletAdapter(),
       new SolflareWalletAdapter({ network }),
       new LedgerWalletAdapter(),
+      new BackpackWalletAdapter(),
+      new SlopeWalletAdapter(),
+      new SolletWalletAdapter(),
     ],
     [network]
   )
