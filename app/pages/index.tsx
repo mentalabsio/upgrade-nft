@@ -23,19 +23,8 @@ export default function Home() {
     process.env.NEXT_PUBLIC_NFT_CREATOR_ADDR,
   ])
   const anchorWallet = useAnchorWallet()
-  const {
-    upgrade,
-    setSelectedNFTMint,
-    setSelectedUpgradeType,
-    feedbackStatus,
-    userTokenBalance,
-    selectedNFTMint,
-    selectedNFTLevel,
-    priceTable,
-  } = useMetadataUpgrade()
-
-  const isAtMaxLevel =
-    selectedNFTLevel + 1 > 1 && !priceTable && priceTable !== 0
+  const { upgrade, setSelectedNFTMint, feedbackStatus, selectedNFTMint } =
+    useMetadataUpgrade()
 
   return (
     <>
@@ -154,26 +143,6 @@ export default function Home() {
                   name="mint"
                   NFTs={walletNFTs}
                 />
-
-                {priceTable === 0 ? (
-                  <Text
-                    sx={{
-                      color: "error",
-                    }}
-                  >
-                    This NFT has no &quot;Level&quot; attribute.
-                  </Text>
-                ) : null}
-
-                {isAtMaxLevel ? (
-                  <Text
-                    sx={{
-                      color: "warning",
-                    }}
-                  >
-                    This NFT is already at the max level! 🚀
-                  </Text>
-                ) : null}
               </Flex>
 
               {/* {selectedNFTMint && priceTable && priceTable !== 0 ? (
@@ -223,20 +192,7 @@ export default function Home() {
                       },
                     }}
                     my="1.6rem"
-                  >
-                    {priceTable && !isNaN(selectedNFTLevel) ? (
-                      <>
-                        <Text>
-                          Current Level: <b>{selectedNFTLevel}</b> | Next Level:{" "}
-                          <b>{selectedNFTLevel + 1}</b>
-                        </Text>
-                        <Text>
-                          Cost: <b>{priceTable.cost}</b> $SKULL |&nbsp; Chance
-                          to upgrade: <b>{priceTable.chance}%</b>
-                        </Text>
-                      </>
-                    ) : null}
-                  </Text>
+                  ></Text>
                 ) : (
                   <>&nbsp; </>
                 )}
@@ -245,11 +201,6 @@ export default function Home() {
                     alignSelf: "center",
                   }}
                   type="submit"
-                  disabled={
-                    !userTokenBalance ||
-                    !priceTable ||
-                    userTokenBalance < priceTable.cost
-                  }
                 >
                   upgrade!
                 </Button>

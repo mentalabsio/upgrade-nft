@@ -2,15 +2,11 @@ import { NextApiRequest, NextApiResponse } from "next"
 
 import * as anchor from "@project-serum/anchor"
 import { getNFTMetadata } from "utils/nfts"
-import {
-  feeTokenAddress,
-  getNFTPriceTableToUpgrade,
-} from "@/hooks/useMetadataUpgrade"
 
 import { hostname } from "os"
 
-const mintOwner = anchor.web3.Keypair.fromSecretKey(
-  anchor.utils.bytes.bs58.decode(process.env.MINT_AUTHORITY_PK_BS58)
+const updateAuthority = anchor.web3.Keypair.fromSecretKey(
+  anchor.utils.bytes.bs58.decode(process.env.UPDATE_AUTHORITY_PK_BS58)
 )
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -35,7 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     /** Basic security */
     /** Check if the price table is correct for the current mint. */
 
-    if (!mint || !parsedBody.selectedUpgradeType || !parsedBody.priceTable) {
+    if (!mint) {
       console.log(mint)
       console.log(parsedBody)
       res.send({
@@ -57,48 +53,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return true
     }
 
-    const priceTable = await getNFTPriceTableToUpgrade(
-      NFTMetadata,
-      parsedBody.selectedUpgradeType
-    )
-
-    const isCostCorrect = parsedBody.priceTable.cost === priceTable.cost
-    const isChanceCorrect = parsedBody.priceTable.chance === priceTable.chance
-
-    if (!isCostCorrect || !isChanceCorrect) {
-      console.log(
-        "Expected cost: %s, got: %s",
-        priceTable.cost,
-        parsedBody.priceTable.cost
-      )
-      console.log(
-        "Expected chance: %s, got: %s",
-        priceTable.chance,
-        parsedBody.priceTable.chance
-      )
-      res.send({
-        txid: null,
-        error: "Invalid request.",
-      })
-
-      return true
-    }
-
-    if (parsedBody.feeTokenAddress !== feeTokenAddress.toString()) {
-      console.log(feeTokenAddress.toString())
-      res.send({
-        txid: null,
-        error: "Invalid request.",
-      })
-
-      return true
-    }
-
     /** End Basic security */
 
     const tx = anchor.web3.Transaction.from(serializedTx.data)
 
-    tx.partialSign(mintOwner)
+    tx.partialSign(updateAuthority)
 
     const txid = await connection.sendRawTransaction(
       tx.serialize({
