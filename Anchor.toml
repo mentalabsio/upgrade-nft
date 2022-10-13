@@ -32,32 +32,52 @@ address = "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
 [[test.validator.clone]]
 address = "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
 
-### Cloning NFT-related Accounts from address ViVDt... on mainnet-beta
+### Cloning NFT-related Accounts from address 77M6t... on mainnet-beta
 
-## NFT #0 (Aired Heirieth)
+## NFT #0 (Soul #136)
 # Mint address
 [[test.validator.clone]]
-address = "DjJMhJiMPHLzX934RS62R4rZT7fnx7PC3CpdGPXDyWT2"
+address = "EVMBMf5f52jdQYuqMangtr5bGxDQRRujSbwDTGH1qeG2"
 # Associated Token Account address
 [[test.validator.clone]]
-address = "DafRy7McBfFpgihRzdakP7TLbQsDLErv8yyANWk4zfDM"
+address = "8U83Dfa86FytotA6yNUkPYhvu1XqiNQAQVKsMnfBpEJx"
 # Metadata Program Derived address
 [[test.validator.clone]]
-address = "FdjMmuKsuFKXDLeG586tTbk8KEab3W2jWaAApQ3Pw7o3"
+address = "CchaWxCpJWkwRYeiikpzi5Nxnw9Fr9qonHHTYeB9FDYX"
 
 
-## NFT #1 (Garrik Preshice)
+## NFT #1 (Heart #1517)
 # Mint address
 [[test.validator.clone]]
-address = "6sgqBeQHpQnB59DgiZozDcd8wvYmPSQ5wcLStgXjPW2C"
+address = "b9F3NM5Hxqwm3XajGFYczzLVLgJWALczaRs3L5kznjJ"
 # Associated Token Account address
 [[test.validator.clone]]
-address = "GttfZ5TWVb4D5iG785dQ8Gs8pnzLnpMgn3g27WTG8Wvh"
+address = "GRfZfWZsjYzLrPHa9WwJmJ6NTx4RPqyaVasc9qULiPrf"
 # Metadata Program Derived address
 [[test.validator.clone]]
-address = "9QwZoRco7G81Jxc8Z5gwXKhc7Bx3FqEQ3J8fgQFSEcZC"
+address = "FQydZP7q9tzm5cQRH26Nc5HbeFVbz5H1qbmEkiwxsCVY"
 
 
-# Fee token address
+## NFT #2 (Mind #1553)
+# Mint address
 [[test.validator.clone]]
-address = "5FozDe1UB9cJZmWKxGg6nBSBSu2A51DXowshCtYeKWEp"
+address = "5poVU6uH871q8ZbbFfdQKduryaZZfwmuU7WZKK1yAAc2"
+# Associated Token Account address
+[[test.validator.clone]]
+address = "DxAsqGKcgWCYVjpJkrfLZwKAghzu1FV2LBaN5EtduKVX"
+# Metadata Program Derived address
+[[test.validator.clone]]
+address = "CHFBUgkXwZNNsYfCG2pxjVPEQYS9k6aeXwjDQKEXy3h3"
+
+
+## NFT #3 (dskullys #3110)
+# Mint address
+[[test.validator.clone]]
+address = "avbWQJoQGecPqnKdvuVjd133nE5d8seZ86b9hw37KNn"
+# Associated Token Account address
+[[test.validator.clone]]
+address = "4U5LUSK3Nsqz2wLtGxdpytYWNP7V5DXxTH2ezPR5EcXy"
+# Metadata Program Derived address
+[[test.validator.clone]]
+address = "CLVTMgzNUEKLUoHL7EV2QF8yAdVTDYW1H95tYfddTMfp"
+

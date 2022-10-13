@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use anchor_spl::token::{ Mint, Token, TokenAccount };
+use anchor_spl::token::{ Mint, TokenAccount };
 use solutils::wrappers::metadata::{ MetadataAccount, TokenMetadata, UpdateMetadataAccountV2 };
 
 declare_id!("PDBzXXEihGKUYUuJyoV4MxdbhDcRydpXMEjXhvfNE1f");
@@ -48,16 +48,14 @@ pub struct Upgrade<'info> {
     #[account(mut)]
     pub update_authority: Signer<'info>,
 
-    pub user_account: Signer<'info>,
-
     #[account(
         mut,
         constraint = user_token_account.mint == mint_address.key(),
-        constraint = user_token_account.owner == user_account.key()
+        constraint = user_token_account.owner == owner.key()
     )]
     pub user_token_account: Account<'info, TokenAccount>,
+    pub owner: Signer<'info>,
 
-    pub token_program: Program<'info, Token>,
     pub token_metadata_program: Program<'info, TokenMetadata>,
 }
 

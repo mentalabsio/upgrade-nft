@@ -8,7 +8,7 @@ import assert from "assert"
 
 import { UpgradeNft } from "../target/types/upgrade_nft"
 
-describe("upgrade-nft", () => {
+describe("upgrade-nft", async () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.Provider.env())
 
@@ -16,19 +16,27 @@ describe("upgrade-nft", () => {
 
   const updateAuthority = anchor.web3.Keypair.fromSecretKey(
     anchor.utils.bytes.bs58.decode(
-      "i4FDfFrETVUApv1pmsfKJoQ1kMthYk5iAyn1z9PsaBi7RrAAHAReVs6eUv1QuwVzuLBdqwZs4AdYndKaeAip5xn"
+      "357SiJKDxsfms2mD39SBcvZVpFQKvMGNftXss4zRJS3Ruvcp9s6yu73BSB4hxQqVVLZx5JP7B549YHL7vSAUoQ3d"
     )
   )
 
   /** NFT mint */
   const mintAddress = new anchor.web3.PublicKey(
-    "DjJMhJiMPHLzX934RS62R4rZT7fnx7PC3CpdGPXDyWT2"
+    "avbWQJoQGecPqnKdvuVjd133nE5d8seZ86b9hw37KNn"
+  )
+
+  /** User pub key */
+  const owner = anchor.web3.Keypair.fromSecretKey(
+    anchor.utils.bytes.bs58.decode(
+      "92GwZ86j6sEXxxJ1K3gGVDno2UVxKi6hAHtPcgrRUzPnZvQL28BdqdyTaxo6NEcs75ZxQDSu7U7QRfhRpxEH1Nj"
+    )
   )
 
   /** NFt owner ATA */
-  const userTokenAccount = new anchor.web3.PublicKey(
-    "DafRy7McBfFpgihRzdakP7TLbQsDLErv8yyANWk4zfDM"
-  )
+  const userTokenAccount = await anchor.utils.token.associatedAddress({
+    mint: mintAddress,
+    owner: owner.publicKey,
+  })
 
   it("Is initialized!", async () => {
     const newUri = "https://example.com/new"
@@ -43,13 +51,11 @@ describe("upgrade-nft", () => {
         mintAddress,
         tokenMetadata,
         updateAuthority: updateAuthority.publicKey,
-
-        userAccount: updateAuthority.publicKey,
-        userTokenAccount,
-
         tokenMetadataProgram: MetadataProgram.PUBKEY,
+        owner: owner.publicKey,
+        userTokenAccount,
       })
-      .signers([updateAuthority])
+      .signers([updateAuthority, owner])
       .rpc()
 
     const metadataData = MetadataData.deserialize(
