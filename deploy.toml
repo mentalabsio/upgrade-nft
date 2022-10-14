@@ -1,0 +1,12 @@
+url = "https://ssc-dao.genesysgo.net"
+
+[program]
+authority = "~/.config/solana/mainnet_ms.json"
+keypair = "/home/ellagoris/workspace/upgrade-nft/target/deploy/upgrade_nft-keypair.json"
+shared_obj = "/home/ellagoris/workspace/upgrade-nft/target/deploy/upgrade_nft.so"
+
+[options]
+jobs = 4
+max_retries = 9000
+sleep = 100
+timeout = 30
