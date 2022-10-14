@@ -22,9 +22,17 @@ export default function Home() {
   const { walletNFTs, fetchNFTs } = useWalletNFTs([
     process.env.NEXT_PUBLIC_NFT_CREATOR_ADDR,
   ])
+  const { walletNFTs: heartNFTs } = useWalletNFTs([
+    "3NhvWncgSUBhvLnXeT4j2LebAHWiZiX4CXmsigibfy4M",
+  ])
+  const { walletNFTs: mindNFTs } = useWalletNFTs([
+    "9Wuz2npnEamiV4TaesDFB1wfqpwJc1EMK78ehtkUGBaw",
+  ])
+  const { walletNFTs: soulNFTs } = useWalletNFTs([
+    "DszDT5xPz11xoHDehhWjV5T3xk7ALM3NV5hkupJKZwjg",
+  ])
   const anchorWallet = useAnchorWallet()
-  const { upgrade, setSelectedNFTMint, feedbackStatus, selectedNFTMint } =
-    useMetadataUpgrade()
+  const { upgrade, feedbackStatus } = useMetadataUpgrade()
 
   return (
     <>
@@ -109,12 +117,19 @@ export default function Home() {
                 const data = new FormData(e.currentTarget)
 
                 const mint = data.get("mint")
+                const mintToBurn1 = data.get("mintToBurn1")
+                const mintToBurn2 = data.get("mintToBurn2")
+                const mintToBurn3 = data.get("mintToBurn3")
 
                 if (!anchorWallet?.publicKey) return true
 
                 if (!mint) return true
 
-                await upgrade(new web3.PublicKey(mint))
+                await upgrade(new web3.PublicKey(mint), [
+                  new web3.PublicKey(mintToBurn1),
+                  new web3.PublicKey(mintToBurn2),
+                  new web3.PublicKey(mintToBurn3),
+                ])
 
                 await fetchNFTs()
 
@@ -128,6 +143,11 @@ export default function Home() {
                 margin: "1.6rem 0",
               }}
             >
+              <Flex>
+                <NFTSelectInput name="mintToBurn1" NFTs={mindNFTs} />
+                <NFTSelectInput name="mintToBurn2" NFTs={soulNFTs} />
+                <NFTSelectInput name="mintToBurn3" NFTs={heartNFTs} />
+              </Flex>
               <Flex
                 sx={{
                   gap: "1.6rem",
@@ -135,14 +155,7 @@ export default function Home() {
                   alignItems: "center",
                 }}
               >
-                <NFTSelectInput
-                  value={selectedNFTMint}
-                  onChange={(newValue) => {
-                    setSelectedNFTMint(newValue.value)
-                  }}
-                  name="mint"
-                  NFTs={walletNFTs}
-                />
+                <NFTSelectInput name="mint" NFTs={walletNFTs} />
               </Flex>
 
               {/* {selectedNFTMint && priceTable && priceTable !== 0 ? (

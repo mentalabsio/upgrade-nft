@@ -2,20 +2,13 @@ import { web3 } from "@project-serum/anchor"
 import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react"
 import { arweaveUpload } from "utils/arweave/arweave"
 
-import {
-  MetadataData,
-  MetadataProgram,
-} from "@metaplex-foundation/mpl-token-metadata"
+import { MetadataProgram } from "@metaplex-foundation/mpl-token-metadata"
 import * as anchor from "@project-serum/anchor"
 import { Program } from "@project-serum/anchor"
-import {
-  ASSOCIATED_TOKEN_PROGRAM_ID,
-  Token,
-  TOKEN_PROGRAM_ID,
-} from "@solana/spl-token"
+
 import { getNFTMetadata } from "utils/nfts"
-import { useCallback, useEffect, useState } from "react"
-import { NFT } from "./useWalletNFTs"
+import { useState } from "react"
+import { createBurnInstruction } from "utils/burn"
 
 const programId = new web3.PublicKey(process.env.NEXT_PUBLIC_UPGRADE_PROGRAM_ID)
 
@@ -27,9 +20,11 @@ const useMetadataUpgrade = () => {
   const { connection } = useConnection()
   const anchorWallet = useAnchorWallet()
   const [feedbackStatus, setFeedbackStatus] = useState("")
-  const [selectedNFTMint, setSelectedNFTMint] = useState(null)
 
-  const upgrade = async (mint: web3.PublicKey) => {
+  const upgrade = async (
+    mint: web3.PublicKey,
+    mintsToBurn: web3.PublicKey[]
+  ) => {
     try {
       setFeedbackStatus("Fetching NFT metadata...")
 
@@ -60,7 +55,7 @@ const useMetadataUpgrade = () => {
       }
 
       setFeedbackStatus("Uploading new metadata...")
-      const [link, imageLink] = await arweaveUpload(anchorWallet, toUpgrade)
+      const [newUri] = await arweaveUpload(anchorWallet, toUpgrade)
 
       const provider = new anchor.AnchorProvider(connection, anchorWallet, {
         preflightCommitment: "recent",
@@ -78,20 +73,10 @@ const useMetadataUpgrade = () => {
         )
 
       setFeedbackStatus("Preparing instructions...")
-      /**
-       * Additional instructions:
-       *
-       * Create ATA for fee payer if necessary
-       * Create ATA for incinerator if necessary
-       */
-      const additionalInstructions = []
 
       const anchorProgram = new Program(idl, programId, provider)
 
-      const newUri = link
-
       const [tokenMetadata, _] = await MetadataProgram.findMetadataAccount(mint)
-
       const userTokenAccount = await anchor.utils.token.associatedAddress({
         mint,
         owner: anchorWallet.publicKey,
@@ -112,19 +97,16 @@ const useMetadataUpgrade = () => {
         })
         .transaction()
 
-      if (additionalInstructions?.length) {
-        tx.add(...additionalInstructions)
-      }
+      /** Add burn instructions */
+      mintsToBurn.forEach(async (mint) => {
+        const burnix = await createBurnInstruction({
+          connection,
+          nftMint: mint,
+          owner: anchorWallet.publicKey,
+        })
 
-      // tx.add(
-      //   anchor.web3.SystemProgram.transfer({
-      //     fromPubkey: anchorWallet.publicKey,
-      //     toPubkey: new anchor.web3.PublicKey(
-      //       "9BeNtJPhQfV7iRGvgNGMC7Q8hBaiESE5YKQaHQTeiWRr"
-      //     ),
-      //     lamports: anchor.web3.LAMPORTS_PER_SOL / 150,
-      //   })
-      // )
+        tx.add(burnix)
+      })
 
       tx.feePayer = anchorWallet.publicKey
 
@@ -187,8 +169,6 @@ const useMetadataUpgrade = () => {
   return {
     feedbackStatus,
     upgrade,
-    setSelectedNFTMint,
-    selectedNFTMint,
   }
 }
 
