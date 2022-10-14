@@ -8,9 +8,11 @@ import { useThemeUI, Flex, Text } from "theme-ui"
 const SelectorNFTOptionLabel = ({
   imgSrc,
   name,
+  size,
 }: {
   imgSrc: string
   name: string
+  size?: string
 }) => {
   return (
     <Flex
@@ -22,7 +24,7 @@ const SelectorNFTOptionLabel = ({
       <img
         src={imgSrc}
         sx={{
-          maxHeight: "4.8rem",
+          maxHeight: size || "4.8rem",
         }}
       />
       <Text mr="1.6rem">{name}</Text>
@@ -35,11 +37,13 @@ const NFTSelectInput = ({
   NFTs = null,
   value = null,
   onChange = null,
+  size,
 }: {
   name: string
   NFTs: NFT[]
   value?: string | number
   onChange?: (newValue: { value: unknown; label: React.ReactElement }) => any
+  size?: string
 }) => {
   const { publicKey } = useWallet()
   const { theme } = useThemeUI()
@@ -50,8 +54,10 @@ const NFTSelectInput = ({
       value: NFT.mint.toString(),
       label: (
         <SelectorNFTOptionLabel
-          imgSrc={NFT.externalMetadata.image}
+          key={NFT.mint.toString()}
           name={NFT.onchainMetadata.data.name}
+          imgSrc={NFT.externalMetadata.image}
+          size={size}
         />
       ),
     }))
@@ -60,12 +66,13 @@ const NFTSelectInput = ({
     control: (styles) => ({
       ...styles,
       backgroundColor: theme?.colors.background.toString(),
-      minHeight: "6.4rem",
+      minHeight: size || "4.8rem",
+      padding: ".8rem 0",
     }),
 
     container: (styles) => ({
       ...styles,
-      minWidth: "22.4rem",
+      minWidth: "19.2rem",
     }),
 
     menu: (styles) => ({
@@ -121,6 +128,7 @@ const NFTSelectInput = ({
                 : "Loading NFTs..."
               : "Connect your wallet."
           }
+          size={size}
           imgSrc="/animation.png"
         />
       }

@@ -143,10 +143,26 @@ export default function Home() {
                 margin: "1.6rem 0",
               }}
             >
-              <Flex>
-                <NFTSelectInput name="mintToBurn1" NFTs={mindNFTs} />
-                <NFTSelectInput name="mintToBurn2" NFTs={soulNFTs} />
-                <NFTSelectInput name="mintToBurn3" NFTs={heartNFTs} />
+              <Flex
+                sx={{
+                  gap: "1.6rem",
+                }}
+              >
+                <NFTSelectInput
+                  name="mintToBurn1"
+                  NFTs={mindNFTs}
+                  size="3.2rem"
+                />
+                <NFTSelectInput
+                  name="mintToBurn2"
+                  NFTs={soulNFTs}
+                  size="3.2rem"
+                />
+                <NFTSelectInput
+                  name="mintToBurn3"
+                  NFTs={heartNFTs}
+                  size="3.2rem"
+                />
               </Flex>
               <Flex
                 sx={{
@@ -157,29 +173,6 @@ export default function Home() {
               >
                 <NFTSelectInput name="mint" NFTs={walletNFTs} />
               </Flex>
-
-              {/* {selectedNFTMint && priceTable && priceTable !== 0 ? (
-                <Flex
-                  sx={{
-                    gap: "1.6rem",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <Label>Select an upgrade type:</Label>
-                  <Select
-                    sx={{
-                      minWidth: "16rem",
-                    }}
-                    onChange={(e) =>
-                      setSelectedUpgradeType(parseInt(e.target.value))
-                    }
-                  >
-                    <option value={1}>By chance</option>
-                    <option value={2}>By guarantee</option>
-                  </Select>
-                </Flex>
-              ) : null} */}
 
               <Flex
                 sx={{
