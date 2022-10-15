@@ -1,7 +1,7 @@
 [features]
 seeds = false
 [programs.localnet]
-upgrade_nft = "PDBzXXEihGKUYUuJyoV4MxdbhDcRydpXMEjXhvfNE1f"
+upgrade_nft = "6M9zvnmrDnGc6QuWJ1qfDaMagT4hFp5U2ec1Bqaa1nT2"
 
 [registry]
 url = "https://anchor.projectserum.com"
@@ -80,4 +80,3 @@ address = "4U5LUSK3Nsqz2wLtGxdpytYWNP7V5DXxTH2ezPR5EcXy"
 # Metadata Program Derived address
 [[test.validator.clone]]
 address = "CLVTMgzNUEKLUoHL7EV2QF8yAdVTDYW1H95tYfddTMfp"
-

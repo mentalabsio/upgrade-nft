@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::token::{ Mint, TokenAccount };
 use solutils::wrappers::metadata::{ MetadataAccount, TokenMetadata, UpdateMetadataAccountV2 };
 
-declare_id!("PDBzXXEihGKUYUuJyoV4MxdbhDcRydpXMEjXhvfNE1f");
+declare_id!("6M9zvnmrDnGc6QuWJ1qfDaMagT4hFp5U2ec1Bqaa1nT2");
 
 #[program]
 pub mod upgrade_nft {
