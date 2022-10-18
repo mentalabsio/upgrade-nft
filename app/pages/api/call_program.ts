@@ -22,7 +22,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(req.headers.host)
     console.log("hostname ", hostnamee)
     console.log(res.getHeaders())
-    const connection = new anchor.web3.Connection(endpoint, "confirmed")
+    const connection = new anchor.web3.Connection(endpoint, {
+      httpHeaders: {
+        "Content-Type": "application/json",
+        Referer: "dskullys-essence.vercel.app",
+      },
+      commitment: "confirmed",
+    })
 
     const parsedBody = JSON.parse(req.body)
     const serializedTx = parsedBody.tx
