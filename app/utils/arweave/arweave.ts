@@ -105,6 +105,7 @@ export async function arweaveUpload(
   const raw = tx.serialize()
 
   const txid = await connection.sendRawTransaction(raw)
+  await connection.confirmTransaction(txid)
 
   /** Start form data */
   const data = new FormData()
