@@ -57,12 +57,19 @@ export default function Home() {
             zIndex: 0,
             position: "fixed",
             left: 0,
-            top: 0,
+            top: "8rem",
             width: "100%",
             height: "100%",
             // backgroundPosition: "",
             backgroundSize: "cover",
             pointerEvents: "none",
+            backgroundRepeat: "no-repeat",
+            /** Horizontally centralized */
+            backgroundPosition: "50% 0",
+
+            // "@media (min-width: 768px)": {
+            //   backgroundSize: "cover",
+            // },
           },
         }}
       ></div>
@@ -91,7 +98,7 @@ export default function Home() {
             },
           }}
         >
-          <img
+          {/* <img
             sx={{
               zIndex: 10,
               maxWidth: "24rem",
@@ -99,7 +106,7 @@ export default function Home() {
               borderRadius: ".4rem",
             }}
             src="/main.png"
-          />
+          /> */}
 
           <Flex
             sx={{
@@ -116,6 +123,7 @@ export default function Home() {
                 fontWeight: "500",
                 textTransform: "uppercase",
                 fontSize: "3.2rem",
+                marginTop: "3.2rem",
               }}
               mb=".8rem"
               variant="heading1"
@@ -133,7 +141,7 @@ export default function Home() {
           sx={{
             flexDirection: "column",
             gap: "1.6rem",
-            marginTop: "12rem",
+            marginTop: "36rem",
             position: "relative",
           }}
         >
