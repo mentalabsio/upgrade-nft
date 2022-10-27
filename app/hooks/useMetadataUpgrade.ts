@@ -26,7 +26,7 @@ const useMetadataUpgrade = () => {
     mintsToBurn: web3.PublicKey[]
   ) => {
     try {
-      setFeedbackStatus("Fetching NFT metadata...")
+      setFeedbackStatus("Scanning the bones...")
 
       const metadata = await getNFTMetadata(mint.toString(), connection)
 
@@ -54,7 +54,7 @@ const useMetadataUpgrade = () => {
         })
       }
 
-      setFeedbackStatus("Uploading new metadata...")
+      setFeedbackStatus("Uploading your essence... Please confirm and wait.")
       const [newUri] = await arweaveUpload(anchorWallet, toUpgrade)
 
       const provider = new anchor.AnchorProvider(connection, anchorWallet, {
@@ -72,8 +72,6 @@ const useMetadataUpgrade = () => {
             "."
         )
 
-      setFeedbackStatus("Preparing instructions...")
-
       const anchorProgram = new Program(idl, programId, provider)
 
       const [tokenMetadata, _] = await MetadataProgram.findMetadataAccount(mint)
@@ -82,7 +80,6 @@ const useMetadataUpgrade = () => {
         owner: anchorWallet.publicKey,
       })
 
-      setFeedbackStatus("Init transaction...")
       const tx = await anchorProgram.methods
         .upgrade(newUri)
         .accounts({
@@ -114,7 +111,7 @@ const useMetadataUpgrade = () => {
         await connection.getLatestBlockhash()
       ).blockhash
 
-      setFeedbackStatus("Awaiting approval...")
+      setFeedbackStatus("Preparing to combine... Please confirm your choice.")
       const signedtx = await provider.wallet.signTransaction(tx)
 
       const body = {
@@ -126,7 +123,7 @@ const useMetadataUpgrade = () => {
         mint: mint.toString(),
       }
 
-      setFeedbackStatus("Updating NFT metadata...")
+      setFeedbackStatus("Setting the essence...")
 
       const { txid } = await (
         await fetch("/api/call_program", {
@@ -139,7 +136,6 @@ const useMetadataUpgrade = () => {
         throw "Invalid request."
       }
 
-      setFeedbackStatus("Confirming transaction...")
       await connection.confirmTransaction(txid, "confirmed")
 
       // const metadataData = MetadataData.deserialize(
@@ -147,9 +143,7 @@ const useMetadataUpgrade = () => {
       //     .data
       // )
 
-      setFeedbackStatus(
-        `Success! Dskully has been upgraded. View on Solana Explorer: https://explorer.solana.com/tx/${txid}`
-      )
+      setFeedbackStatus(`Success! Your essence has been set!`)
 
       setTimeout(async () => {
         setFeedbackStatus("")
@@ -158,7 +152,7 @@ const useMetadataUpgrade = () => {
       return txid
     } catch (e) {
       console.log(e)
-      setFeedbackStatus("Something went wrong. " + e + "")
+      setFeedbackStatus("Oops, something went wrong. " + e + "")
 
       setTimeout(() => {
         setFeedbackStatus("")
