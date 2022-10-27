@@ -44,15 +44,15 @@ const useMetadataUpgrade = () => {
       let toUpgrade = Object.assign({}, metadata.externalMetadata)
 
       /** Cancel upgrade if upgraded */
-      // if (essenceAttributeValue) {
-      //   throw new Error("Dskully is already upgraded")
-      //   /** Or push the essence attribute */
-      // } else {
-      //   toUpgrade.attributes.push({
-      //     trait_type: "Essence",
-      //     value: "Set",
-      //   })
-      // }
+      if (essenceAttributeValue) {
+        // throw new Error("Dskully is already upgraded")
+        /** Or push the essence attribute */
+      } else {
+        toUpgrade.attributes.push({
+          trait_type: "Essence",
+          value: "Set",
+        })
+      }
 
       setFeedbackStatus("Uploading new metadata...")
       const [newUri] = await arweaveUpload(anchorWallet, toUpgrade)
