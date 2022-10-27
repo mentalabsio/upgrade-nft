@@ -44,6 +44,28 @@ export default function Home() {
 
       <Header />
 
+      <div
+        sx={{
+          zIndex: 0,
+
+          "&:before": {
+            content: "''",
+            backgroundImage: "url(essence_bg.jpeg)",
+            // backgroundAttachment: "",
+            minHeight: "100vh",
+            opacity: 0.9,
+            zIndex: 0,
+            position: "fixed",
+            left: 0,
+            top: 0,
+            width: "100%",
+            height: "100%",
+            // backgroundPosition: "",
+            backgroundSize: "cover",
+            pointerEvents: "none",
+          },
+        }}
+      ></div>
       <main
         sx={{
           display: "flex",
@@ -51,16 +73,28 @@ export default function Home() {
           justifyContent: "center",
           alignItems: "center",
           marginTop: "2.4rem",
+          zIndex: 10,
+
+          "*": {
+            zIndex: 10,
+          },
         }}
       >
         <Flex
           sx={{
             alignItems: "center",
+            flexDirection: "column",
+
+            "@media (min-width: 768px)": {
+              flexDirection: "row",
+            },
           }}
         >
           <img
             sx={{
+              zIndex: 10,
               maxWidth: "32rem",
+              marginBottom: "3.2rem",
             }}
             src="/animation.png"
           />
@@ -68,6 +102,7 @@ export default function Home() {
           <Flex
             sx={{
               flexDirection: "column",
+              alignItems: "center",
             }}
           >
             <Heading
@@ -76,7 +111,6 @@ export default function Home() {
                 position: "relative",
                 color: "#FFFFFF",
                 fontFamily: "Quarry Bones, Sans-serif",
-                fontSize: "3.2vw",
                 fontWeight: "500",
                 textTransform: "uppercase",
               }}
@@ -106,9 +140,7 @@ export default function Home() {
               gap: ".8rem",
             }}
           >
-            <Heading variant="heading3">
-              Select a Dskully to set the Essence:
-            </Heading>
+            <Heading variant="heading3">Select the ingredients:</Heading>
 
             <form
               onSubmit={async (e) => {
@@ -146,6 +178,11 @@ export default function Home() {
               <Flex
                 sx={{
                   gap: "1.6rem",
+                  flexDirection: "column",
+
+                  "@media (min-width: 768px)": {
+                    flexDirection: "row",
+                  },
                 }}
               >
                 <NFTSelectInput
@@ -164,6 +201,7 @@ export default function Home() {
                   size="3.2rem"
                 />
               </Flex>
+              <Heading variant="heading3">Select the Dskully:</Heading>
               <Flex
                 sx={{
                   gap: "1.6rem",
