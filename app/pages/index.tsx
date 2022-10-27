@@ -84,6 +84,7 @@ export default function Home() {
           sx={{
             alignItems: "center",
             flexDirection: "column",
+            gap: "3.2rem",
 
             "@media (min-width: 768px)": {
               flexDirection: "row",
@@ -93,10 +94,11 @@ export default function Home() {
           <img
             sx={{
               zIndex: 10,
-              maxWidth: "32rem",
+              maxWidth: "24rem",
               marginBottom: "3.2rem",
+              borderRadius: ".4rem",
             }}
-            src="/animation.png"
+            src="/main.png"
           />
 
           <Flex
@@ -113,6 +115,7 @@ export default function Home() {
                 fontFamily: "Quarry Bones, Sans-serif",
                 fontWeight: "500",
                 textTransform: "uppercase",
+                fontSize: "3.2rem",
               }}
               mb=".8rem"
               variant="heading1"
@@ -189,16 +192,19 @@ export default function Home() {
                   name="mintToBurn1"
                   NFTs={mindNFTs}
                   size="3.2rem"
+                  placeholderImg="/mind.png"
                 />
                 <NFTSelectInput
                   name="mintToBurn2"
                   NFTs={soulNFTs}
                   size="3.2rem"
+                  placeholderImg="/soul.png"
                 />
                 <NFTSelectInput
                   name="mintToBurn3"
                   NFTs={heartNFTs}
                   size="3.2rem"
+                  placeholderImg="/heart.png"
                 />
               </Flex>
               <Heading variant="heading3">Select the Dskully:</Heading>
@@ -209,7 +215,11 @@ export default function Home() {
                   alignItems: "center",
                 }}
               >
-                <NFTSelectInput name="mint" NFTs={walletNFTs} />
+                <NFTSelectInput
+                  name="mint"
+                  NFTs={walletNFTs}
+                  placeholderImg="/main.png"
+                />
               </Flex>
 
               <Flex

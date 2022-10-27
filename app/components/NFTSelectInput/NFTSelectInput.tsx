@@ -38,12 +38,14 @@ const NFTSelectInput = ({
   value = null,
   onChange = null,
   size,
+  placeholderImg,
 }: {
   name: string
   NFTs: NFT[]
   value?: string | number
   onChange?: (newValue: { value: unknown; label: React.ReactElement }) => any
   size?: string
+  placeholderImg?: string
 }) => {
   const { publicKey } = useWallet()
   const { theme } = useThemeUI()
@@ -129,7 +131,7 @@ const NFTSelectInput = ({
               : "Connect your wallet."
           }
           size={size}
-          imgSrc="/animation.png"
+          imgSrc={placeholderImg || "/animation.png"}
         />
       }
     />
