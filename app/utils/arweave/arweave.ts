@@ -18,7 +18,8 @@ async function fetchAssetCostToStore(fileSizes: number[]) {
   const result = await calculate(fileSizes)
 
   const cost = result.solana * anchor.web3.LAMPORTS_PER_SOL
-  return cost
+  // add additional lamport to prevent error.
+  return cost + 10000
 }
 
 async function upload(data: FormData, manifest) {
@@ -88,7 +89,7 @@ export async function arweaveUpload(
     anchor.web3.SystemProgram.transfer({
       fromPubkey: wallet.publicKey,
       toPubkey: ARWEAVE_PAYMENT_WALLET,
-      lamports: storageCost,
+      lamports: Math.ceil(storageCost),
     }),
   ]
 
