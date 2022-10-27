@@ -197,6 +197,12 @@ export default function Home() {
                 }}
               >
                 <NFTSelectInput
+                  name="mintToBurn3"
+                  NFTs={heartNFTs}
+                  size="3.2rem"
+                  placeholderImg="/heart.png"
+                />
+                <NFTSelectInput
                   name="mintToBurn1"
                   NFTs={mindNFTs}
                   size="3.2rem"
@@ -207,12 +213,6 @@ export default function Home() {
                   NFTs={soulNFTs}
                   size="3.2rem"
                   placeholderImg="/soul.png"
-                />
-                <NFTSelectInput
-                  name="mintToBurn3"
-                  NFTs={heartNFTs}
-                  size="3.2rem"
-                  placeholderImg="/heart.png"
                 />
               </Flex>
               <Heading variant="heading3">Select the Dskully:</Heading>
