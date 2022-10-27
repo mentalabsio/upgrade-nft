@@ -54,7 +54,6 @@ export default function Home() {
             // backgroundAttachment: "",
             minHeight: "100vh",
             opacity: 0.9,
-            zIndex: 0,
             position: "fixed",
             left: 0,
             top: "8rem",
@@ -81,10 +80,6 @@ export default function Home() {
           alignItems: "center",
           marginTop: "2.4rem",
           zIndex: 10,
-
-          "*": {
-            zIndex: 10,
-          },
         }}
       >
         <Flex
@@ -112,11 +107,11 @@ export default function Home() {
             sx={{
               flexDirection: "column",
               alignItems: "center",
+              zIndex: 10,
             }}
           >
             <Heading
               sx={{
-                zIndex: 1,
                 position: "relative",
                 color: "#FFFFFF",
                 fontFamily: "Quarry Bones, Sans-serif",

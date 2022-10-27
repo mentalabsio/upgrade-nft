@@ -14,7 +14,7 @@ const Header = () => {
       sx={{
         position: "sticky",
         top: 0,
-        zIndex: 9,
+        zIndex: 20,
       }}
     >
       <Container>
