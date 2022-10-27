@@ -57,7 +57,7 @@ function estimateManifestSize(filenames: string[]) {
 export async function arweaveUpload(
   wallet: AnchorWallet,
   metadata,
-  env = "devnet",
+  env = "mainnet-beta",
   image = "https://bafybeiasgp3dwwcuu63pvrjirwonk6by5nne6aiznyz3h75vf3cynxv4gy.ipfs.dweb.link/3109.png"
 ) {
   const connection = new Connection(
@@ -87,7 +87,7 @@ export async function arweaveUpload(
     anchor.web3.SystemProgram.transfer({
       fromPubkey: wallet.publicKey,
       toPubkey: ARWEAVE_PAYMENT_WALLET,
-      lamports: Number(storageCost.toFixed(0)),
+      lamports: storageCost,
     }),
   ]
 

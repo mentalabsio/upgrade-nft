@@ -98,15 +98,15 @@ const useMetadataUpgrade = () => {
         .transaction()
 
       /** Add burn instructions */
-      mintsToBurn.forEach(async (mint) => {
-        const burnix = await createBurnInstruction({
-          connection,
-          nftMint: mint,
-          owner: anchorWallet.publicKey,
-        })
+      // mintsToBurn.forEach(async (mint) => {
+      //   const burnix = await createBurnInstruction({
+      //     connection,
+      //     nftMint: mint,
+      //     owner: anchorWallet.publicKey,
+      //   })
 
-        tx.add(burnix)
-      })
+      //   tx.add(burnix)
+      // })
 
       tx.feePayer = anchorWallet.publicKey
 
