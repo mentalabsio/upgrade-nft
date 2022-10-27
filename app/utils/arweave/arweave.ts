@@ -63,7 +63,8 @@ export async function arweaveUpload(
   image = "https://bafybeiasgp3dwwcuu63pvrjirwonk6by5nne6aiznyz3h75vf3cynxv4gy.ipfs.dweb.link/3109.png"
 ) {
   const connection = new Connection(
-    process.env.NEXT_PUBLIC_SOLANA_RPC_HOST_MAINNET_BETA
+    process.env.NEXT_PUBLIC_SOLANA_RPC_HOST_MAINNET_BETA,
+    "confirmed"
   )
   const metadataBuffer = Buffer.from(JSON.stringify(metadata)) // TODO rename metadataBuffer
 
@@ -107,7 +108,6 @@ export async function arweaveUpload(
   const raw = tx.serialize()
 
   const txid = await connection.sendRawTransaction(raw)
-  await connection.confirmTransaction(txid, "finalized")
 
   /** Start form data */
   const data = new FormData()
