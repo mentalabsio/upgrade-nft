@@ -17,7 +17,7 @@ const ARWEAVE_UPLOAD_ENDPOINT =
 async function fetchAssetCostToStore(fileSizes: number[]) {
   const result = await calculate(fileSizes)
 
-  return result.solana * anchor.web3.LAMPORTS_PER_SOL
+  return Number(result.solana.toFixed(9)) * anchor.web3.LAMPORTS_PER_SOL
 }
 
 async function upload(data: FormData, manifest) {
@@ -87,7 +87,7 @@ export async function arweaveUpload(
     anchor.web3.SystemProgram.transfer({
       fromPubkey: wallet.publicKey,
       toPubkey: ARWEAVE_PAYMENT_WALLET,
-      lamports: Number(storageCost.toFixed(9)),
+      lamports: storageCost,
     }),
   ]
 
