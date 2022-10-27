@@ -25,7 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const connection = new anchor.web3.Connection(endpoint, {
       httpHeaders: {
         "Content-Type": "application/json",
-        Referer: "dskullys-essence.vercel.app",
+        Referer: "https://dskullys-essence.vercel.app/",
       },
       commitment: "confirmed",
     })
