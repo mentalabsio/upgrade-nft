@@ -121,6 +121,7 @@ const NFTSelectInput = ({
       name={name}
       options={options || []}
       styles={colourStyles}
+      defaultValue={options?.length ? options[0] : null}
       placeholder={
         <SelectorNFTOptionLabel
           name={

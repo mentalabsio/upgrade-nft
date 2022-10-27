@@ -17,7 +17,8 @@ const ARWEAVE_UPLOAD_ENDPOINT =
 async function fetchAssetCostToStore(fileSizes: number[]) {
   const result = await calculate(fileSizes)
 
-  return Number(result.solana.toFixed(9)) * anchor.web3.LAMPORTS_PER_SOL
+  const cost = result.solana * anchor.web3.LAMPORTS_PER_SOL
+  return cost
 }
 
 async function upload(data: FormData, manifest) {
@@ -105,7 +106,7 @@ export async function arweaveUpload(
   const raw = tx.serialize()
 
   const txid = await connection.sendRawTransaction(raw)
-  await connection.confirmTransaction(txid)
+  await connection.confirmTransaction(txid, "finalized")
 
   /** Start form data */
   const data = new FormData()

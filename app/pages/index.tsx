@@ -17,6 +17,7 @@ import { useAnchorWallet } from "@solana/wallet-adapter-react"
 import useMetadataUpgrade from "@/hooks/useMetadataUpgrade"
 import { web3 } from "@project-serum/anchor"
 import { LoadingIcon } from "@/components/icons/LoadingIcon"
+import { useMemo } from "react"
 
 export default function Home() {
   const { walletNFTs, fetchNFTs } = useWalletNFTs([
@@ -33,6 +34,24 @@ export default function Home() {
   ])
   const anchorWallet = useAnchorWallet()
   const { upgrade, feedbackStatus } = useMetadataUpgrade()
+
+  /** Remove upgraded */
+  const filteredNFTs = useMemo(() => {
+    if (!walletNFTs) return null
+    return walletNFTs.filter(({ externalMetadata }) => {
+      const essenceAttributeValue = externalMetadata?.attributes.find(
+        (attribute) => {
+          return attribute?.trait_type?.toLowerCase() === "essence"
+        }
+      )?.value
+
+      if (!essenceAttributeValue) {
+        return true
+      }
+
+      return false
+    })
+  }, [walletNFTs])
 
   return (
     <>
@@ -220,7 +239,7 @@ export default function Home() {
               >
                 <NFTSelectInput
                   name="mint"
-                  NFTs={walletNFTs}
+                  NFTs={filteredNFTs}
                   placeholderImg="/main.png"
                 />
               </Flex>

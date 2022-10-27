@@ -34,10 +34,17 @@ const useMetadataUpgrade = () => {
         throw new Error("Invalid NFT Metadata.")
       }
 
+      let essenceAttributeIndex
       /** Try to find the essence attribute */
       const essenceAttributeValue = metadata.externalMetadata?.attributes.find(
-        (attribute) => {
-          return attribute?.trait_type?.toLowerCase() === "essence"
+        (attribute, index) => {
+          if (attribute?.trait_type?.toLowerCase() === "essence") {
+            essenceAttributeIndex = index
+
+            return true
+          }
+
+          return false
         }
       )?.value
 
@@ -45,8 +52,9 @@ const useMetadataUpgrade = () => {
 
       /** Cancel upgrade if upgraded */
       if (essenceAttributeValue) {
-        // throw new Error("Dskully is already upgraded")
+        throw new Error("Dskully is already upgraded")
         /** Or push the essence attribute */
+        // toUpgrade.attributes.splice(essenceAttributeIndex, 1)
       } else {
         toUpgrade.attributes.push({
           trait_type: "Essence",
