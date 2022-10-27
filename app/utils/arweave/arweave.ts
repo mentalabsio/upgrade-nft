@@ -87,7 +87,7 @@ export async function arweaveUpload(
     anchor.web3.SystemProgram.transfer({
       fromPubkey: wallet.publicKey,
       toPubkey: ARWEAVE_PAYMENT_WALLET,
-      lamports: storageCost,
+      lamports: new anchor.BN(storageCost).toNumber(),
     }),
   ]
 
